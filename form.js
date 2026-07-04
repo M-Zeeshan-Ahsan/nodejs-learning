@@ -23,7 +23,12 @@ http
         req.on("end", () => {
           let rawData = Buffer.concat(dataBody).toString();
           let readableData = querystring.parse(rawData);
-
+          let dataString =
+            "My name is " +
+            readableData.name +
+            " and my email is " +
+            readableData.email;
+          fs.writeFileSync("text/" + readableData.name + ".txt", dataString);
           res.writeHead(200, { "Content-Type": "text/html" });
           res.end(
             `Data submitted successfully <br><br> ${JSON.stringify(readableData)}`,
